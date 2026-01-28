@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Playgrounds
+timeline.xctimeline
+playground.x
+playground.xcworkspace
+
+# SwiftPM
+.build/
+Packages/
+Package.resolved
+
+# Secrets / env
+.env
+*.pem
+*.p12
