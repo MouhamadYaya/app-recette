@@ -1,8 +1,8 @@
 import SwiftUI
 
-// MARK: - Models
+// MARK: - Mock-only models (distinct from Supabase Transaction in Models/)
 
-struct Transaction: Identifiable {
+struct MockTransaction: Identifiable {
     let id = UUID()
     let day: Int
     let icon: String
@@ -25,16 +25,16 @@ struct BudgetCategory: Identifiable {
 // MARK: - Mock Data
 
 enum MockData {
-    static let transactions: [Transaction] = [
-        Transaction(day: 1,  icon: "💰", title: "Salaire Juin",      category: "Revenus",      amount: +2800.00),
-        Transaction(day: 5,  icon: "🛒", title: "Monoprix",          category: "Courses",      amount:   -67.20),
-        Transaction(day: 8,  icon: "🚗", title: "Uber",              category: "Transport",    amount:   -12.30),
-        Transaction(day: 10, icon: "☕", title: "Coffee & Snacks",   category: "Alimentation", amount:    -8.50),
-        Transaction(day: 14, icon: "🍽️", title: "Restaurant Mado",   category: "Alimentation", amount:   -42.00),
-        Transaction(day: 18, icon: "⚡", title: "EDF",               category: "Logement",     amount:  -145.00),
-        Transaction(day: 20, icon: "📱", title: "Netflix, Spotify…", category: "Abonnements",  amount:   -56.00),
-        Transaction(day: 24, icon: "🛒", title: "Leclerc",           category: "Courses",      amount:  -127.40),
-        Transaction(day: 26, icon: "🍽️", title: "Sushi Zen",         category: "Alimentation", amount:   -89.00),
+    static let transactions: [MockTransaction] = [
+        MockTransaction(day: 1,  icon: "💰", title: "Salaire Juin",      category: "Revenus",      amount: +2800.00),
+        MockTransaction(day: 5,  icon: "🛒", title: "Monoprix",          category: "Courses",      amount:   -67.20),
+        MockTransaction(day: 8,  icon: "🚗", title: "Uber",              category: "Transport",    amount:   -12.30),
+        MockTransaction(day: 10, icon: "☕", title: "Coffee & Snacks",   category: "Alimentation", amount:    -8.50),
+        MockTransaction(day: 14, icon: "🍽️", title: "Restaurant Mado",   category: "Alimentation", amount:   -42.00),
+        MockTransaction(day: 18, icon: "⚡", title: "EDF",               category: "Logement",     amount:  -145.00),
+        MockTransaction(day: 20, icon: "📱", title: "Netflix, Spotify…", category: "Abonnements",  amount:   -56.00),
+        MockTransaction(day: 24, icon: "🛒", title: "Leclerc",           category: "Courses",      amount:  -127.40),
+        MockTransaction(day: 26, icon: "🍽️", title: "Sushi Zen",         category: "Alimentation", amount:   -89.00),
     ]
 
     static let budgetCategories: [BudgetCategory] = [
@@ -46,11 +46,11 @@ enum MockData {
         BudgetCategory(icon: "🎉", name: "Loisirs",      budget: 150,  spent:   0.00),
     ]
 
-    static var totalRevenus: Double { transactions.filter { $0.isRevenu }.reduce(0) { $0 + $1.amount } }
+    static var totalRevenus: Double  { transactions.filter { $0.isRevenu }.reduce(0) { $0 + $1.amount } }
     static var totalDepenses: Double { transactions.filter { !$0.isRevenu }.reduce(0) { $0 + abs($1.amount) } }
     static var solde: Double { 2847.30 }
 
-    static func transactions(forDay day: Int) -> [Transaction] {
+    static func transactions(forDay day: Int) -> [MockTransaction] {
         transactions.filter { $0.day == day }
     }
 

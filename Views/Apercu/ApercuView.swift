@@ -165,7 +165,7 @@ struct ApercuView: View {
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(.evoNavy)
 
-            ForEach(MockData.transactions.suffix(5).reversed()) { txn in
+            ForEach(Array(MockData.transactions.suffix(5).reversed())) { txn in
                 transactionRow(txn)
             }
         }
@@ -225,7 +225,7 @@ struct ApercuView: View {
 
     private var listeContent: some View {
         VStack(spacing: 8) {
-            ForEach(MockData.transactions.reversed()) { txn in
+            ForEach(Array(MockData.transactions.reversed())) { txn in
                 transactionRow(txn)
                     .padding(16)
                     .evoCard()
@@ -237,7 +237,7 @@ struct ApercuView: View {
 
     // MARK: - Shared
 
-    private func transactionRow(_ txn: Transaction) -> some View {
+    private func transactionRow(_ txn: MockTransaction) -> some View {
         HStack(spacing: 12) {
             Text(txn.icon)
                 .font(.system(size: 20))
