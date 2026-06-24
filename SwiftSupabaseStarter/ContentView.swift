@@ -21,7 +21,7 @@ struct ContentView: View {
                 NavigationStack {
                     Group {
                         if authViewModel.state == .signedIn {
-                            Home()
+                            MainTabView()
                         } else {
                             Login()
                         }
