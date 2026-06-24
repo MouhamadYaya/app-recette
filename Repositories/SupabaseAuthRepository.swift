@@ -88,10 +88,10 @@ final class SupabaseAuthRepository: AuthRepositoryProtocol {
         var metadata: [String: AnyJSON] = [:]
 
         if let name = displayName {
-            metadata["display_name"] = .string(name)
+            metadata["display_name"] = AnyJSON.string(name)
         }
         if let url = photoURL {
-            metadata["photo_url"] = .string(url.absoluteString)
+            metadata["photo_url"] = AnyJSON.string(url.absoluteString)
         }
 
         try await supabase.auth.update(user: UserAttributes(data: metadata))
