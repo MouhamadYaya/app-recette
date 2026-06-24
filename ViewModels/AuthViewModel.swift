@@ -26,7 +26,7 @@ class AuthViewModel: ObservableObject {
     private let authRepository: AuthRepositoryProtocol
 
     // MARK: - Init
-    init(authRepository: AuthRepositoryProtocol = SupabaseAuthRepository()) {
+    init(authRepository: AuthRepositoryProtocol) {
         self.authRepository = authRepository
         Task {
             await checkAuthenticationState()

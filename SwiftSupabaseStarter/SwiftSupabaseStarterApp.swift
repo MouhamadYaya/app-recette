@@ -11,7 +11,7 @@ import Supabase
 @main
 struct SwiftSupabaseStarterApp: App {
 
-    @StateObject private var authViewModel = AuthViewModel()
+    @StateObject private var authViewModel = AuthViewModel(authRepository: SupabaseAuthRepository())
 
     var body: some Scene {
         WindowGroup {
@@ -32,7 +32,7 @@ struct SwiftSupabaseStarterApp: App {
             }
 
             do {
-                try await SupabaseManager.shared.client.auth.exchangeCodeForSession(authCode: code)
+                _ = try await SupabaseManager.shared.client.auth.exchangeCodeForSession(authCode: code)
                 await authViewModel.checkAuthenticationState()
             } catch {
                 authViewModel.error = .signInFailed(description: error.localizedDescription)

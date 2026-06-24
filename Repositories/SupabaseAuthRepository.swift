@@ -85,15 +85,13 @@ final class SupabaseAuthRepository: AuthRepositoryProtocol {
 
     // Update Metadata
     func updateUserProfile(displayName: String?, photoURL: URL?) async throws {
-        var metadata: [String: AnyJSON] = [:]
+        var parts: [String: String] = [:]
+        if let name = displayName { parts["display_name"] = name }
+        if let url = photoURL { parts["photo_url"] = url.absoluteString }
+        guard !parts.isEmpty else { return }
 
-        if let name = displayName {
-            metadata["display_name"] = AnyJSON.string(name)
-        }
-        if let url = photoURL {
-            metadata["photo_url"] = AnyJSON.string(url.absoluteString)
-        }
-
+        let data = try JSONEncoder().encode(parts)
+        let metadata = try JSONDecoder().decode([String: AnyJSON].self, from: data)
         try await supabase.auth.update(user: UserAttributes(data: metadata))
     }
 

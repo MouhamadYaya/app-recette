@@ -101,13 +101,13 @@ struct Home: View {
 
     // display Name
     private var userName: String {
-        /// Supabase metadata structure = [String: Any]
-        if let meta = authViewModel.currentUser?.userMetadata,
-           let name = meta["display_name"] as? String,
-           !name.isEmpty {
-            return name
-        }
-        return "User"
+        guard let meta = authViewModel.currentUser?.userMetadata,
+              let nameJSON = meta["display_name"],
+              let encoded = try? JSONEncoder().encode(nameJSON),
+              let name = try? JSONDecoder().decode(String.self, from: encoded),
+              !name.isEmpty
+        else { return "User" }
+        return name
     }
 
     // sign Out Handler
