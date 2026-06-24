@@ -5,7 +5,7 @@ enum TransactionType: String, Codable, CaseIterable {
     case expense = "expense"
 }
 
-struct Transaction: Codable, Identifiable {
+struct Transaction: Codable, Identifiable, Sendable {
     let id: UUID
     let userId: UUID
     let categoryId: UUID?

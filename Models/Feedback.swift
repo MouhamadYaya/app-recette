@@ -28,7 +28,7 @@ enum FeedbackRating: Int, Codable, CaseIterable {
     }
 }
 
-struct Feedback: Codable, Identifiable {
+struct Feedback: Codable, Identifiable, Sendable {
     let id: UUID
     let userId: UUID?
     let rating: FeedbackRating

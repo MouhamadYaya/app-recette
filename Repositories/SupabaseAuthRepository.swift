@@ -8,7 +8,6 @@
 import Foundation
 import Supabase
 import Auth
-internal import _Helpers
 
 #if canImport(UIKit)
 import UIKit

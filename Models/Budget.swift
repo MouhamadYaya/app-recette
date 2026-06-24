@@ -5,7 +5,7 @@ enum BudgetPeriod: String, Codable {
     case monthly = "monthly"
 }
 
-struct Budget: Codable, Identifiable {
+struct Budget: Codable, Identifiable, Sendable {
     let id: UUID
     let userId: UUID
     let categoryId: UUID
@@ -25,7 +25,7 @@ struct Budget: Codable, Identifiable {
     }
 }
 
-struct BudgetWithSpending {
+struct BudgetWithSpending: Sendable {
     let budget: Budget
     let category: Category
     let spent: Double

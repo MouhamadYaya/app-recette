@@ -181,7 +181,7 @@ enum BillsCount: String, Codable, CaseIterable {
 }
 
 // Modèle complet des réponses
-struct OnboardingAnswers: Codable, Identifiable {
+struct OnboardingAnswers: Codable, Identifiable, Sendable {
     let id: UUID
     let userId: UUID
     var ageRange: AgeRange?

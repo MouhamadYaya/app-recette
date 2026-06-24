@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct Category: Codable, Identifiable {
+struct Category: Codable, Identifiable, Sendable {
     let id: UUID
     let userId: UUID?
     let name: String

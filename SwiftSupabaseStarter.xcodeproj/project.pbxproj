@@ -28,6 +28,11 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		BD8686602ECEB3C0006201FF /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BD8686562ECEB382006201FF /* Repositories */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Repositories;
@@ -72,6 +77,7 @@
 				BD86865A2ECEB3AC006201FF /* ViewModels */,
 				BD8686592ECEB3A4006201FF /* Utils */,
 				BD8686562ECEB382006201FF /* Repositories */,
+				BD8686602ECEB3C0006201FF /* Models */,
 				BD86864C2ECEB24D006201FF /* Enums */,
 				BD86863D2ECE72BE006201FF /* SwiftSupabaseStarter */,
 				BD86863C2ECE72BE006201FF /* Products */,
@@ -104,6 +110,7 @@
 			fileSystemSynchronizedGroups = (
 				BD86863D2ECE72BE006201FF /* SwiftSupabaseStarter */,
 				BD86864C2ECEB24D006201FF /* Enums */,
+				BD8686602ECEB3C0006201FF /* Models */,
 				BD8686562ECEB382006201FF /* Repositories */,
 				BD8686592ECEB3A4006201FF /* Utils */,
 				BD86865A2ECEB3AC006201FF /* ViewModels */,

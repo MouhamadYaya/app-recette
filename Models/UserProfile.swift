@@ -18,7 +18,7 @@ enum Currency: String, Codable, CaseIterable {
     }
 }
 
-struct UserProfile: Codable, Identifiable {
+struct UserProfile: Codable, Identifiable, Sendable {
     let id: UUID
     let userId: UUID
     var displayName: String
