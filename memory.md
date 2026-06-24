@@ -144,13 +144,13 @@ feedback (id, user_id, rating, message, screen, app_version, created_at)
 - [ ] PaywallView (steps 16-18)
 - [ ] OnboardingFlow coordinator
 
-### Phase 3 — App principale ⬜ À FAIRE
-- [ ] MainTabView
-- [ ] Aperçu (3 sous-onglets)
-- [ ] Budget (3 sous-onglets)
-- [ ] Calendrier
-- [ ] Paramètres
-- [ ] Modal ajout transaction
+### Phase 3 — App principale ✅ FAIT
+- [x] MainTabView — barre navy flottante, bosse centrale, 2+2 onglets
+- [x] Aperçu (3 sous-onglets : Aperçu / Dépenses / Liste)
+- [x] Budget (3 sous-onglets : Programmer / Il reste / Informations)
+- [x] Calendrier
+- [x] Paramètres + BankConnectionModal
+- [x] AddExpenseSheet (bouton + central → bottom sheet montant/catégorie/date)
 
 ### Phase 4 — Fonctionnalités transverses ⬜ À FAIRE
 - [ ] TransactionViewModel + Repository
@@ -169,11 +169,22 @@ feedback (id, user_id, rating, message, screen, app_version, created_at)
 | 2026-06-24 | Création memory.md |
 | 2026-06-24 | Modèles Swift Phase 1 créés |
 | 2026-06-24 | MonevoStyles.swift (design system) |
+| 2026-06-24 | Phase 3 complète — 4 vues + MockData |
+| 2026-06-24 | Fond dégradé bleu léger (#EEF5FC→#DDE9F6) |
+| 2026-06-24 | Réduction top padding (52→16) sur tous les écrans |
+| 2026-06-24 | MainTabView redesign : barre navy, bump circle, + central |
+| 2026-06-24 | Bump = 2 shapes navy fusionnées (circle + RoundedRect) |
+| 2026-06-24 | + centré dans cercle (offset géométrique -15px) + halo shadow |
 
 ---
 
 ## Notes techniques
-- Le projet tourne sur branche `claude/blissful-cori-j0mvlb`
-- Le push GitHub est bloqué par permissions (403) depuis le container cloud
-- Appliquer les changements localement via `git pull` une fois les permissions réglées
-- Prototype HTML : `22ad50c3-Fynn__Interface_Financie_re.html` (Claude Design export)
+- Branche : `claude/blissful-cori-j0mvlb` → repo `mouhamadyaya/app-recette`
+- `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor` (tous les types implicitement @MainActor)
+- `MockTransaction` (pas `Transaction` — conflit avec `Models/Transaction.swift`)
+- Nav : `barH=64, bumpD=58, protrude=12` → offset cercle = `-(barH-bumpD+protrude) = -18`
+- Offset icône + dans cercle = `-(barH/2 + protrude - bumpD/2) = -15`
+- `StrokeStyle` : argument `lineCap` doit précéder `dash`
+- Clé publique Supabase anon : `sb_publishable_XEYazoFZiwLy2uOQhKlv2Q_QgkwJLAo`
+- ⚠️ NE JAMAIS utiliser la clé secrète dans le code
+- Prototype HTML : `388cc1af-Fynn__Interface_Financie_re.html`
