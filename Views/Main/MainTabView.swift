@@ -18,6 +18,7 @@ enum MainTab: String, CaseIterable {
 
 struct MainTabView: View {
     @State private var selectedTab: MainTab = .apercu
+    @State private var showAddExpense = false
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -33,59 +34,89 @@ struct MainTabView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.bottom, 84)
 
-            // Floating pill nav
-            floatingNav
+            // Nav bar with center + bump
+            navBar
                 .padding(.horizontal, 14)
                 .padding(.bottom, 20)
         }
         .ignoresSafeArea(edges: .bottom)
-    }
-
-    // MARK: - Floating Nav
-
-    private var floatingNav: some View {
-        HStack(spacing: 0) {
-            ForEach(MainTab.allCases, id: \.self) { tab in
-                Button { selectedTab = tab } label: {
-                    navItem(tab)
-                }
-                .frame(maxWidth: .infinity)
-            }
+        .sheet(isPresented: $showAddExpense) {
+            AddExpenseSheet()
+                .presentationDetents([.height(480)])
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(28)
         }
-        .padding(.vertical, 10)
-        .padding(.horizontal, 8)
-        .background(
-            RoundedRectangle(cornerRadius: 32)
-                .fill(Color.white.opacity(0.92))
-                .shadow(color: Color.evoNavy.opacity(0.14), radius: 20, x: 0, y: 8)
-                .shadow(color: Color.evoNavy.opacity(0.08), radius: 6, x: 0, y: 2)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 32)
-                        .stroke(Color.white.opacity(0.7), lineWidth: 1)
-                )
-        )
     }
+
+    // MARK: - Nav Bar
+
+    private var navBar: some View {
+        ZStack(alignment: .bottom) {
+            // Background pill
+            RoundedRectangle(cornerRadius: 32)
+                .fill(Color.evoNavy)
+                .frame(height: 72)
+                .shadow(color: Color.evoNavy.opacity(0.35), radius: 20, x: 0, y: 8)
+                .shadow(color: Color.evoNavy.opacity(0.15), radius: 6, x: 0, y: 2)
+
+            // Tab items row
+            HStack(spacing: 0) {
+                // Left tabs
+                navItem(.apercu)
+                navItem(.budget)
+
+                // Center spacer for the elevated button
+                Spacer().frame(width: 80)
+
+                // Right tabs
+                navItem(.calendrier)
+                navItem(.parametres)
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 8)
+
+            // Elevated center + button
+            Button { showAddExpense = true } label: {
+                ZStack {
+                    Circle()
+                        .fill(Color.evoNavy)
+                        .frame(width: 62, height: 62)
+                        .shadow(color: Color.evoNavy.opacity(0.4), radius: 12, x: 0, y: -4)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white.opacity(0.15), lineWidth: 1.5)
+                        )
+                    Image(systemName: "plus")
+                        .font(.system(size: 26, weight: .bold))
+                        .foregroundColor(.white)
+                }
+            }
+            .offset(y: -22)
+        }
+    }
+
+    // MARK: - Nav Item
 
     @ViewBuilder
     private func navItem(_ tab: MainTab) -> some View {
         let isActive = selectedTab == tab
-        VStack(spacing: 2) {
-            navIcon(tab, active: isActive)
-                .frame(width: 20, height: 20)
-            Text(tab.label)
-                .font(.system(size: 9, weight: .bold))
-                .foregroundColor(isActive ? .white : .evoGray)
-                .lineLimit(1)
+        Button { selectedTab = tab } label: {
+            VStack(spacing: 3) {
+                navIcon(tab, active: isActive)
+                    .frame(width: 22, height: 22)
+                Text(tab.label)
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundColor(isActive ? .white : Color.white.opacity(0.45))
+                    .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 6)
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 6)
-        .background(isActive ? Color.evoNavy : Color.clear)
-        .cornerRadius(22)
     }
 
     @ViewBuilder
     private func navIcon(_ tab: MainTab, active: Bool) -> some View {
-        let c = active ? Color.white : Color.evoGray
+        let c = active ? Color.white : Color.white.opacity(0.45)
         switch tab {
         case .apercu:
             ZStack {

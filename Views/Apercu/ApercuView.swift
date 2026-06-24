@@ -9,7 +9,6 @@ enum ApercuSubTab: String, CaseIterable {
 
 struct ApercuView: View {
     @State private var selectedSubTab: ApercuSubTab = .apercu
-    @State private var showAddExpense = false
 
     // Design colors matching prototype
     private let darkText   = Color(hex: "#0F1923")!
@@ -40,35 +39,6 @@ struct ApercuView: View {
                     }
                 }
             }
-
-            // Floating + button — only on main Aperçu sub-tab
-            if selectedSubTab == .apercu {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button { showAddExpense = true } label: {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.evoNavy)
-                                    .frame(width: 56, height: 56)
-                                    .shadow(color: Color.evoNavy.opacity(0.35), radius: 14, x: 0, y: 6)
-                                Image(systemName: "plus")
-                                    .font(.system(size: 22, weight: .bold))
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .padding(.trailing, 24)
-                        .padding(.bottom, 104)
-                    }
-                }
-            }
-        }
-        .sheet(isPresented: $showAddExpense) {
-            AddExpenseSheet()
-                .presentationDetents([.height(480)])
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(28)
         }
     }
 
