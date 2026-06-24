@@ -16,14 +16,83 @@ enum MainTab: String, CaseIterable {
     }
 }
 
+// MARK: - Bump Shape
+
+struct TabBarBumpShape: Shape {
+    var cornerRadius: CGFloat = 30
+    var bumpRadius: CGFloat   = 36
+    var bumpProtrusion: CGFloat = 20   // how far the bump rises above bar top
+
+    func path(in rect: CGRect) -> Path {
+        let cx      = rect.midX
+        let barTop  = rect.minY + bumpProtrusion  // flat bar starts here
+        let bottom  = rect.maxY
+        let left    = rect.minX
+        let right   = rect.maxX
+        let r       = cornerRadius
+        let br      = bumpRadius
+
+        // Bump circle center (sits bumpProtrusion below the very top of the frame)
+        let bumpCY  = barTop + br - bumpProtrusion   // = rect.minY + br
+
+        // Intersection points of bump circle with barTop horizontal line
+        let dy = barTop - bumpCY
+        let dx = sqrt(max(0, br * br - dy * dy))
+        let bumpLeft  = cx - dx
+        let bumpRight = cx + dx
+
+        // Angles from bump center to intersection points (math convention, y-up)
+        let startAngle = Angle(radians: atan2(Double(barTop - bumpCY), Double(bumpLeft  - cx)))
+        let endAngle   = Angle(radians: atan2(Double(barTop - bumpCY), Double(bumpRight - cx)))
+
+        var path = Path()
+
+        // ── Top-left corner ──────────────────────────────────────────────────
+        path.move(to: CGPoint(x: left + r, y: barTop))
+        path.addArc(center: CGPoint(x: left + r, y: barTop + r), radius: r,
+                    startAngle: .degrees(270), endAngle: .degrees(180), clockwise: true)
+        // Left edge
+        path.addLine(to: CGPoint(x: left, y: bottom - r))
+        // Bottom-left corner
+        path.addArc(center: CGPoint(x: left + r, y: bottom - r), radius: r,
+                    startAngle: .degrees(180), endAngle: .degrees(90), clockwise: true)
+        // Bottom edge
+        path.addLine(to: CGPoint(x: right - r, y: bottom))
+        // Bottom-right corner
+        path.addArc(center: CGPoint(x: right - r, y: bottom - r), radius: r,
+                    startAngle: .degrees(90), endAngle: .degrees(0), clockwise: true)
+        // Right edge
+        path.addLine(to: CGPoint(x: right, y: barTop + r))
+        // Top-right corner
+        path.addArc(center: CGPoint(x: right - r, y: barTop + r), radius: r,
+                    startAngle: .degrees(0), endAngle: .degrees(270), clockwise: true)
+        // Top edge right → bump right
+        path.addLine(to: CGPoint(x: bumpRight, y: barTop))
+        // Bump arc — goes up and over (counterclockwise in screen = clockwise: false)
+        path.addArc(center: CGPoint(x: cx, y: bumpCY), radius: br,
+                    startAngle: endAngle, endAngle: startAngle, clockwise: false)
+        // Top edge bump left → top-left
+        path.addLine(to: CGPoint(x: left + r, y: barTop))
+        path.closeSubpath()
+
+        return path
+    }
+}
+
+// MARK: - Main Tab View
+
 struct MainTabView: View {
     @State private var selectedTab: MainTab = .apercu
     @State private var showAddExpense = false
 
+    private let bumpProtrusion: CGFloat = 20
+    private let bumpRadius: CGFloat     = 36
+    private let barHeight: CGFloat      = 68
+
     var body: some View {
         ZStack(alignment: .bottom) {
-            // Content
-            ZStack {
+            // Screen content — leaves room for bar + bump
+            Group {
                 switch selectedTab {
                 case .apercu:     ApercuView()
                 case .budget:     BudgetView()
@@ -32,10 +101,10 @@ struct MainTabView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.bottom, 84)
+            .padding(.bottom, barHeight + 20)
 
-            // Nav bar with center + bump
-            navBar
+            // Floating nav
+            floatingNav
                 .padding(.horizontal, 14)
                 .padding(.bottom, 20)
         }
@@ -48,50 +117,45 @@ struct MainTabView: View {
         }
     }
 
-    // MARK: - Nav Bar
+    // MARK: - Floating Nav
 
-    private var navBar: some View {
-        ZStack(alignment: .bottom) {
-            // Background pill
-            RoundedRectangle(cornerRadius: 32)
+    private var floatingNav: some View {
+        ZStack(alignment: .top) {
+            // Unified bump shape — one piece, no seams
+            TabBarBumpShape(cornerRadius: 30, bumpRadius: bumpRadius, bumpProtrusion: bumpProtrusion)
                 .fill(Color.evoNavy)
-                .frame(height: 72)
-                .shadow(color: Color.evoNavy.opacity(0.35), radius: 20, x: 0, y: 8)
-                .shadow(color: Color.evoNavy.opacity(0.15), radius: 6, x: 0, y: 2)
+                .frame(height: barHeight + bumpProtrusion)
+                .shadow(color: Color.evoNavy.opacity(0.38), radius: 22, x: 0, y: 10)
+                .shadow(color: Color.evoNavy.opacity(0.12), radius: 6,  x: 0, y: 2)
 
-            // Tab items row
+            // Tab items + center button — all inside the same container
             HStack(spacing: 0) {
-                // Left tabs
                 navItem(.apercu)
                 navItem(.budget)
 
-                // Center spacer for the elevated button
-                Spacer().frame(width: 80)
+                // Center — + button sits at top of the bump
+                Button { showAddExpense = true } label: {
+                    VStack(spacing: 4) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.white.opacity(0.10))
+                                .frame(width: 52, height: 52)
+                            Image(systemName: "plus")
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundColor(.white)
+                        }
+                        // No label for center button
+                        Color.clear.frame(height: 11)
+                    }
+                }
+                .frame(width: bumpRadius * 2 + 4)
+                .offset(y: 2)
 
-                // Right tabs
                 navItem(.calendrier)
                 navItem(.parametres)
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 8)
-
-            // Elevated center + button
-            Button { showAddExpense = true } label: {
-                ZStack {
-                    Circle()
-                        .fill(Color.evoNavy)
-                        .frame(width: 62, height: 62)
-                        .shadow(color: Color.evoNavy.opacity(0.4), radius: 12, x: 0, y: -4)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.15), lineWidth: 1.5)
-                        )
-                    Image(systemName: "plus")
-                        .font(.system(size: 26, weight: .bold))
-                        .foregroundColor(.white)
-                }
-            }
-            .offset(y: -22)
+            .padding(.horizontal, 10)
+            .frame(height: barHeight + bumpProtrusion)
         }
     }
 
@@ -105,18 +169,19 @@ struct MainTabView: View {
                 navIcon(tab, active: isActive)
                     .frame(width: 22, height: 22)
                 Text(tab.label)
-                    .font(.system(size: 9, weight: .bold))
-                    .foregroundColor(isActive ? .white : Color.white.opacity(0.45))
+                    .font(.system(size: 9, weight: isActive ? .bold : .medium))
+                    .foregroundColor(isActive ? .white : Color.white.opacity(0.4))
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 6)
+            .padding(.top, bumpProtrusion)
         }
     }
 
     @ViewBuilder
     private func navIcon(_ tab: MainTab, active: Bool) -> some View {
-        let c = active ? Color.white : Color.white.opacity(0.45)
+        let c = active ? Color.white : Color.white.opacity(0.4)
         switch tab {
         case .apercu:
             ZStack {
@@ -140,7 +205,8 @@ struct MainTabView: View {
             ZStack {
                 Circle().stroke(c, lineWidth: 1.8).frame(width: 8, height: 8).offset(y: -4)
                 Path { p in
-                    p.addArc(center: CGPoint(x: 10, y: 20), radius: 7, startAngle: .degrees(180), endAngle: .degrees(0), clockwise: false)
+                    p.addArc(center: CGPoint(x: 10, y: 20), radius: 7,
+                             startAngle: .degrees(180), endAngle: .degrees(0), clockwise: false)
                 }
                 .stroke(c, lineWidth: 1.8)
             }
