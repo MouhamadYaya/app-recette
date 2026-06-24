@@ -18,14 +18,14 @@ extension Color {
 extension LinearGradient {
     static let evoBackground = LinearGradient(
         colors: [
-            Color(hex: "#C2D8ED")!,
-            Color(hex: "#D2E4F6")!,
-            Color(hex: "#E3EDF9")!,
-            Color(hex: "#D0E2F5")!,
-            Color(hex: "#BFD4EC")!,
+            Color(hex: "#EEF5FC")!,
+            Color(hex: "#E4EFF9")!,
+            Color(hex: "#F0F6FD")!,
+            Color(hex: "#E8F2FB")!,
+            Color(hex: "#DDE9F6")!,
         ],
-        startPoint: UnitPoint(x: 0.15, y: 0),
-        endPoint: UnitPoint(x: 0.85, y: 1)
+        startPoint: UnitPoint(x: 0.0, y: 0.0),
+        endPoint: UnitPoint(x: 1.0, y: 1.0)
     )
 }
 

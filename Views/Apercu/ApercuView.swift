@@ -9,6 +9,7 @@ enum ApercuSubTab: String, CaseIterable {
 
 struct ApercuView: View {
     @State private var selectedSubTab: ApercuSubTab = .apercu
+    @State private var showAddExpense = false
 
     // Design colors matching prototype
     private let darkText   = Color(hex: "#0F1923")!
@@ -22,7 +23,6 @@ struct ApercuView: View {
             LinearGradient.evoBackground.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Scrollable content
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
                         topBar
@@ -40,6 +40,35 @@ struct ApercuView: View {
                     }
                 }
             }
+
+            // Floating + button — only on main Aperçu sub-tab
+            if selectedSubTab == .apercu {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button { showAddExpense = true } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.evoNavy)
+                                    .frame(width: 56, height: 56)
+                                    .shadow(color: Color.evoNavy.opacity(0.35), radius: 14, x: 0, y: 6)
+                                Image(systemName: "plus")
+                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        .padding(.trailing, 24)
+                        .padding(.bottom, 104)
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showAddExpense) {
+            AddExpenseSheet()
+                .presentationDetents([.height(480)])
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(28)
         }
     }
 
@@ -74,7 +103,7 @@ struct ApercuView: View {
             }
         }
         .padding(.horizontal, 18)
-        .padding(.top, 52)
+        .padding(.top, 16)
         .padding(.bottom, 22)
     }
 
@@ -397,6 +426,125 @@ struct LineChartView: View {
                         .frame(width: 9, height: 9)
                 }
                 .position(x: w * 0.7, y: h * 0.33)
+            }
+        }
+    }
+}
+
+// MARK: - Add Expense Sheet
+
+struct AddExpenseSheet: View {
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var montant: String = ""
+    @State private var selectedCategory: String = "Courses"
+    @State private var selectedDate = Date()
+
+    private let darkText = Color(hex: "#0F1923")!
+    private let midGray  = Color(hex: "#6B7A99")!
+
+    private let categories: [(String, String)] = [
+        ("🛒", "Courses"),
+        ("🍴", "Restaurants"),
+        ("🚗", "Transport"),
+        ("🏠", "Logement"),
+        ("📱", "Abonnements"),
+        ("🎬", "Loisirs"),
+    ]
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Amount
+                VStack(spacing: 6) {
+                    Text("MONTANT")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(midGray)
+                        .kerning(1.5)
+                    HStack(alignment: .firstTextBaseline, spacing: 4) {
+                        TextField("0", text: $montant)
+                            .keyboardType(.decimalPad)
+                            .font(.system(size: 48, weight: .black))
+                            .foregroundColor(darkText)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: 180)
+                        Text("€")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(midGray)
+                    }
+                }
+                .padding(.top, 24)
+                .padding(.bottom, 24)
+
+                Divider().padding(.horizontal, 24)
+
+                // Category
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("CATÉGORIE")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(midGray)
+                        .kerning(1.5)
+                        .padding(.horizontal, 24)
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach(categories, id: \.1) { cat in
+                                Button {
+                                    selectedCategory = cat.1
+                                } label: {
+                                    VStack(spacing: 4) {
+                                        Text(cat.0).font(.system(size: 20))
+                                        Text(cat.1)
+                                            .font(.system(size: 10, weight: .semibold))
+                                            .foregroundColor(selectedCategory == cat.1 ? .white : darkText)
+                                    }
+                                    .frame(width: 72, height: 60)
+                                    .background(selectedCategory == cat.1 ? Color.evoNavy : Color(hex: "#F2F4F8")!)
+                                    .cornerRadius(14)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 24)
+                    }
+                }
+                .padding(.top, 20)
+                .padding(.bottom, 20)
+
+                Divider().padding(.horizontal, 24)
+
+                // Date & time
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("DATE & HEURE")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(midGray)
+                        .kerning(1.5)
+                    DatePicker("", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+                        .labelsHidden()
+                        .tint(Color.evoNavy)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 24)
+                .padding(.top, 20)
+
+                Spacer()
+
+                // Save button
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Ajouter la dépense")
+                }
+                .evoButtonStyle()
+                .padding(.horizontal, 24)
+                .padding(.bottom, 32)
+            }
+            .background(LinearGradient.evoBackground.ignoresSafeArea())
+            .navigationTitle("Nouvelle dépense")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Annuler") { dismiss() }.foregroundColor(Color.evoNavy)
+                }
             }
         }
     }

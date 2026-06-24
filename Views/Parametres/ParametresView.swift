@@ -28,7 +28,7 @@ struct ParametresView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 18)
-                    .padding(.top, 52)
+                    .padding(.top, 16)
                     .padding(.bottom, 20)
 
                     // User card

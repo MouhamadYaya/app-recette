@@ -64,7 +64,7 @@ struct CalendrierView: View {
             }
         }
         .padding(.horizontal, 18)
-        .padding(.top, 52)
+        .padding(.top, 16)
         .padding(.bottom, 14)
     }
 
