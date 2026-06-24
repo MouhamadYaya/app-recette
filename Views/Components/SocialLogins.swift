@@ -96,6 +96,6 @@ struct SocialLogins: View {
 struct SocialLogins_Previews: PreviewProvider {
     static var previews: some View {
         SocialLogins()
-            .environmentObject(AuthViewModel())
+            .environmentObject(AuthViewModel(authRepository: MockAuthRepository()))
     }
 }
