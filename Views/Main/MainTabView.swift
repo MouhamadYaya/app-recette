@@ -85,9 +85,9 @@ struct MainTabView: View {
     @State private var selectedTab: MainTab = .apercu
     @State private var showAddExpense = false
 
-    private let bumpProtrusion: CGFloat = 20
-    private let bumpRadius: CGFloat     = 36
-    private let barHeight: CGFloat      = 68
+    private let bumpProtrusion: CGFloat = 18
+    private let bumpRadius: CGFloat     = 38
+    private let barHeight: CGFloat      = 64
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -133,23 +133,19 @@ struct MainTabView: View {
                 navItem(.apercu)
                 navItem(.budget)
 
-                // Center — + button sits at top of the bump
+                // Center — + nested inside the bump, no extra background
                 Button { showAddExpense = true } label: {
-                    VStack(spacing: 4) {
-                        ZStack {
-                            Circle()
-                                .fill(Color.white.opacity(0.10))
-                                .frame(width: 52, height: 52)
-                            Image(systemName: "plus")
-                                .font(.system(size: 20, weight: .semibold))
-                                .foregroundColor(.white)
-                        }
-                        // No label for center button
-                        Color.clear.frame(height: 11)
+                    ZStack {
+                        Circle()
+                            .stroke(Color.white.opacity(0.22), lineWidth: 1.5)
+                            .frame(width: 40, height: 40)
+                        Image(systemName: "plus")
+                            .font(.system(size: 23, weight: .semibold))
+                            .foregroundColor(.white)
                     }
                 }
-                .frame(width: bumpRadius * 2 + 4)
-                .offset(y: 2)
+                .frame(width: bumpRadius * 2)
+                .offset(y: -19)
 
                 navItem(.calendrier)
                 navItem(.parametres)
