@@ -69,14 +69,10 @@ struct MainTabView: View {
             Circle()
                 .fill(Color.evoNavy)
                 .frame(width: bumpD, height: bumpD)
-                .overlay(
-                    // Subtle inner ring, just like the competitor image
-                    Circle().stroke(Color.white.opacity(0.18), lineWidth: 1.5)
-                )
-                // Move up so its top is `protrude` px above the bar top.
-                // Without offset: circle bottom = bar bottom, circle top = bar bottom - bumpD.
-                // We want circle top = bar top - protrude = -(barH + protrude) from bar bottom.
-                // ∴ offset = -(barH - bumpD) - protrude = -(barH - bumpD + protrude)
+                .overlay(Circle().stroke(Color.white.opacity(0.18), lineWidth: 1.5))
+                // Dark halo shadow around the circle (visible on the navy bar behind it)
+                // = the subtle depth ring seen on the competitor image
+                .shadow(color: Color.black.opacity(0.30), radius: 10, x: 0, y: 0)
                 .offset(y: -(barH - bumpD + protrude))  // = -(64 - 58 + 12) = -18
 
             // ② Bar — the main pill, covers the bump circle's lower half
@@ -102,10 +98,14 @@ struct MainTabView: View {
     // MARK: - Plus Button (center)
 
     private var plusItem: some View {
-        Button { showAddExpense = true } label: {
+        // Circle center is at barH/2 - protrude above bar center = 15px higher than bar center.
+        // Apply offset(y: -15) so the icon aligns exactly with the circle center.
+        let iconOffset: CGFloat = -(barH / 2 + protrude - bumpD / 2)  // = -15
+        return Button { showAddExpense = true } label: {
             Image(systemName: "plus")
                 .font(.system(size: 22, weight: .medium))
                 .foregroundColor(.white)
+                .offset(y: iconOffset)
                 .frame(maxWidth: .infinity)
                 .frame(height: barH)
                 .contentShape(Rectangle())
