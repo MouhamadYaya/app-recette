@@ -1,7 +1,7 @@
-# MonEvo — Mémoire du Projet
+# Monevo — Mémoire du Projet
 
 ## Identité
-- **Nom** : MonEvo (expense manager)
+- **Nom** : Monevo (expense manager)
 - **Bundle ID** : à renommer depuis SwiftSupabaseStarter
 - **Icône** : cochon tirelire blanc sur fond navy (#18284A) — fichier fourni
 - **Palette** : Navy `#18284A` · Bleu clair `#C2D8ED` · Vert `#22C47A` · Rouge `#FF4E6A` · Blanc · Gris `#8A94A6`
@@ -15,7 +15,7 @@
 ### Onboarding (19 steps)
 | Step | Écran |
 |------|-------|
-| 0 | Bienvenue — logo MonEvo + CTA |
+| 0 | Bienvenue — logo Monevo + CTA |
 | 1 | Accroche 💡 "Maîtrisez votre argent" |
 | 2 | Intro questions (mascotte chien) |
 | 3 | Q1 — Âge |
@@ -51,7 +51,7 @@
 ## Structure des fichiers (cible)
 
 ```
-MonEvo/
+Monevo/
 ├── Models/
 │   ├── Transaction.swift
 │   ├── Category.swift
@@ -78,14 +78,14 @@ MonEvo/
 │   │   ├── Calendrier/
 │   │   └── Parametres/
 │   └── Components/
-│       ├── MonEvoLogo.swift
+│       ├── MonevoLogo.swift
 │       └── ...
 ├── Repositories/
 │   ├── SupabaseAuthRepository.swift  ✅ existant (+ MockAuthRepository)
 │   ├── TransactionRepository.swift
 │   └── BudgetRepository.swift
 └── Utils/
-    ├── MonEvoStyles.swift            (remplace UIStyles.swift)
+    ├── MonevoStyles.swift            (remplace UIStyles.swift)
     ├── SupabaseManager.swift         ✅ existant
     └── Extensions.swift              ✅ existant
 ```
@@ -126,8 +126,8 @@ feedback (id, user_id, rating, message, screen, app_version, created_at)
 ### Phase 1 — Setup & Infrastructure ⏳ EN COURS
 - [x] Fichier memory.md créé
 - [x] Modèles Swift créés (Transaction, Category, Budget, UserProfile, OnboardingAnswers, Feedback)
-- [x] MonEvoStyles.swift (design system MonEvo)
-- [ ] Renommer le projet Xcode en MonEvo
+- [x] MonevoStyles.swift (design system Monevo)
+- [ ] Renommer le projet Xcode en Monevo
 - [ ] Configurer Supabase (credentials réels)
 - [ ] Créer les tables Supabase (SQL)
 - [ ] Configurer l'icône de l'app
@@ -168,7 +168,7 @@ feedback (id, user_id, rating, message, screen, app_version, created_at)
 | 2026-06-24 | Fix crash Xcode Preview (MockAuthRepository) |
 | 2026-06-24 | Création memory.md |
 | 2026-06-24 | Modèles Swift Phase 1 créés |
-| 2026-06-24 | MonEvoStyles.swift (design system) |
+| 2026-06-24 | MonevoStyles.swift (design system) |
 
 ---
 

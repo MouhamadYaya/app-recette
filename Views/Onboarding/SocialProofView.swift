@@ -4,9 +4,9 @@ struct SocialProofView: View {
     let onNext: () -> Void
 
     private let testimonials = [
-        ("Sophie M.", "⭐️⭐️⭐️⭐️⭐️", "J'ai économisé 3 200 € en 6 mois grâce à MonEvo. Les alertes budget ont tout changé !"),
+        ("Sophie M.", "⭐️⭐️⭐️⭐️⭐️", "J'ai économisé 3 200 € en 6 mois grâce à Monevo. Les alertes budget ont tout changé !"),
         ("Thomas L.", "⭐️⭐️⭐️⭐️⭐️", "Enfin une app qui comprend mes besoins. Simple, rapide, efficace."),
-        ("Amina K.", "⭐️⭐️⭐️⭐️⭐️", "Je recommande à tous mes amis. MonEvo m'a aidée à rembourser mes dettes."),
+        ("Amina K.", "⭐️⭐️⭐️⭐️⭐️", "Je recommande à tous mes amis. Monevo m'a aidée à rembourser mes dettes."),
     ]
 
     var body: some View {

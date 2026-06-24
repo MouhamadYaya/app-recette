@@ -22,7 +22,7 @@ struct WelcomeView: View {
 
                 // Titre
                 VStack(spacing: 12) {
-                    Text("MonEvo")
+                    Text("Monevo")
                         .font(.system(size: 42, weight: .black))
                         .foregroundColor(.evoNavy)
 

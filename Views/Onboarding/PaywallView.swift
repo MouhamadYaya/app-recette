@@ -60,7 +60,7 @@ struct PaywallView: View {
                 Text("💎")
                     .font(.system(size: 72))
 
-                Text("Passez à\nMonEvo Pro")
+                Text("Passez à\nMonevo Pro")
                     .font(.system(size: 36, weight: .black))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)

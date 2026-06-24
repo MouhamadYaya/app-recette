@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Couleurs MonEvo
+// MARK: - Couleurs Monevo
 
 extension Color {
     static let evoNavy      = Color(hex: "#18284A")!
@@ -29,9 +29,9 @@ extension LinearGradient {
     )
 }
 
-// MARK: - Bouton principal MonEvo
+// MARK: - Bouton principal Monevo
 
-struct MonEvoPrimaryButton: ViewModifier {
+struct MonevoPrimaryButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(.white)
@@ -46,13 +46,13 @@ struct MonEvoPrimaryButton: ViewModifier {
 
 extension View {
     func evoButtonStyle() -> some View {
-        self.modifier(MonEvoPrimaryButton())
+        self.modifier(MonevoPrimaryButton())
     }
 }
 
-// MARK: - Card MonEvo
+// MARK: - Card Monevo
 
-struct MonEvoCard: ViewModifier {
+struct MonevoCard: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background(Color.white)
@@ -63,13 +63,13 @@ struct MonEvoCard: ViewModifier {
 
 extension View {
     func evoCard() -> some View {
-        self.modifier(MonEvoCard())
+        self.modifier(MonevoCard())
     }
 }
 
-// MARK: - Logo MonEvo
+// MARK: - Logo Monevo
 
-struct MonEvoLogo: View {
+struct MonevoLogo: View {
     var size: CGFloat = 40
 
     var body: some View {

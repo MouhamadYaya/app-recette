@@ -1,4 +1,4 @@
--- MonEvo — Schéma Supabase
+-- Monevo — Schéma Supabase
 -- Exécuter dans l'éditeur SQL de ton projet Supabase
 
 -- ─── PROFILES ───────────────────────────────────────────────────────────────

@@ -22,7 +22,7 @@ struct CommunityView: View {
                         .foregroundColor(.evoNavy)
                         .multilineTextAlignment(.center)
 
-                    Text("Des milliers de personnes reprennent\nle contrôle de leurs finances avec MonEvo.")
+                    Text("Des milliers de personnes reprennent\nle contrôle de leurs finances avec Monevo.")
                         .font(.system(size: 15))
                         .foregroundColor(.evoGray)
                         .multilineTextAlignment(.center)
