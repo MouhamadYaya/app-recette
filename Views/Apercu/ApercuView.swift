@@ -385,7 +385,7 @@ struct LineChartView: View {
                                control1: CGPoint(x: w * 0.83, y: h * 0.26),
                                control2: CGPoint(x: w * 0.87, y: h * 0.26))
                 }
-                .stroke(Color(hex: "#CBD5E4")!, style: StrokeStyle(lineWidth: 2, dash: [5, 4], lineCap: .round))
+                .stroke(Color(hex: "#CBD5E4")!, style: StrokeStyle(lineWidth: 2, lineCap: .round, dash: [5, 4]))
 
                 // Today dot
                 ZStack {
