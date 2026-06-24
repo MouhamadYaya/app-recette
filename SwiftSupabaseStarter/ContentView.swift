@@ -9,32 +9,42 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
 
     var body: some View {
-        NavigationStack {
-            Group {
-                if authViewModel.state == .signedIn {
-                    Home()
-                } else {
-                    Login()
+        Group {
+            if !onboardingCompleted {
+                OnboardingFlow {
+                    onboardingCompleted = true
+                }
+            } else {
+                NavigationStack {
+                    Group {
+                        if authViewModel.state == .signedIn {
+                            Home()
+                        } else {
+                            Login()
+                        }
+                    }
+                    .animation(.easeInOut, value: authViewModel.state)
+                }
+                .overlay {
+                    if authViewModel.isLoading {
+                        LoadingView()
+                    }
+                }
+                .alert(item: errorBinding) { identifiableError in
+                    Alert(
+                        title: Text("Error"),
+                        message: Text(identifiableError.errorDescription),
+                        dismissButton: .default(Text("OK")) {
+                            authViewModel.error = nil
+                        }
+                    )
                 }
             }
-            .animation(.easeInOut, value: authViewModel.state)
         }
-        .overlay {
-            if authViewModel.isLoading {
-                LoadingView()
-            }
-        }
-        .alert(item: errorBinding) { identifiableError in
-            Alert(
-                title: Text("Error"),
-                message: Text(identifiableError.errorDescription),
-                dismissButton: .default(Text("OK")) {
-                    authViewModel.error = nil
-                }
-            )
-        }
+        .animation(.easeInOut, value: onboardingCompleted)
     }
 
     // Convert AuthError into IdentifiableError for alerts
