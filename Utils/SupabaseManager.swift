@@ -12,8 +12,8 @@ import Supabase
 // todo: Replace these with your Supabase project credentials
 // Get these from: https://supabase.com/dashboard/project/YOUR_PROJECT/settings/api
 private enum SupabaseConfig {
-    static let url = "https://your-project-id.supabase.co"
-    static let anonKey = "your-anon-key-here"
+    static let url = "https://fvflmfvepwrqguumehoz.supabase.co"
+    static let anonKey = "sb_publishable_XEYazoFZiwLy2uOQhKlv2Q_QgkwJLAo"
 }
 
 final class SupabaseManager {
@@ -22,14 +22,8 @@ final class SupabaseManager {
     let client: SupabaseClient
 
     private init() {
-        guard let url = URL(string: SupabaseConfig.url),
-              SupabaseConfig.url != "https://your-project-id.supabase.co" else {
-            fatalError("""
-                ⚠️ Supabase not configured!
-
-                Please update SupabaseConfig in SupabaseManager.swift with your project credentials.
-                Get these from: https://supabase.com/dashboard/project/YOUR_PROJECT/settings/api
-                """)
+        guard let url = URL(string: SupabaseConfig.url) else {
+            fatalError("⚠️ URL Supabase invalide dans SupabaseManager.swift")
         }
 
         client = SupabaseClient(
