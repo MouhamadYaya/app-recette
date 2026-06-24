@@ -161,7 +161,7 @@ struct Login_Previews: PreviewProvider {
     static var previews: some View {
         Login()
             .environmentObject(AuthViewModel(
-                authRepository: SupabaseAuthRepository()
+                authRepository: MockAuthRepository()
             ))
     }
 }

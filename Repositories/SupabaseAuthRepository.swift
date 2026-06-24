@@ -14,6 +14,21 @@ internal import _Helpers
 import UIKit
 #endif
 
+#if DEBUG
+final class MockAuthRepository: AuthRepositoryProtocol {
+    func signInWithEmail(email: String, password: String) async throws -> User { fatalError("preview only") }
+    func signUpWithEmail(email: String, password: String) async throws -> User { fatalError("preview only") }
+    func signOut() async throws {}
+    func sendPasswordReset(email: String) async throws {}
+    func getCurrentUser() async -> User? { nil }
+    func updateUserProfile(displayName: String?, photoURL: URL?) async throws {}
+    func updateEmail(email: String) async throws {}
+    func updatePassword(password: String) async throws {}
+    func signInWithApple(idToken: String, nonce: String) async throws -> User { fatalError("preview only") }
+    func signInWithGoogle() async throws {}
+}
+#endif
+
 protocol AuthRepositoryProtocol {
     func signInWithEmail(email: String, password: String) async throws -> User
     func signUpWithEmail(email: String, password: String) async throws -> User

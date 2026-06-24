@@ -145,7 +145,7 @@ struct Home_Previews: PreviewProvider {
         NavigationStack {
             Home()
                 .environmentObject(
-                    AuthViewModel(authRepository: SupabaseAuthRepository())
+                    AuthViewModel(authRepository: MockAuthRepository())
                 )
         }
     }
