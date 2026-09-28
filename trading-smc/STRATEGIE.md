@@ -178,3 +178,23 @@ Si un critère échoue : on ajuste **une seule** règle, on documente le changem
 - **Chaque jour** : mise à jour du journal (trades, respect des règles, capital).
 - **Chaque semaine** : stats (win rate, R moyen, profit factor, drawdown), meilleurs / pires setups par actif et par session.
 - **Tous les 30 trades** : décision garder / ajuster / abandonner un actif ou un modèle.
+
+---
+
+# PARTIE 8 : modèle S — scalping SMC (1m / 5m)
+
+Trades courts (quelques minutes à 1 h), plusieurs par session.
+
+| Élément | Règle |
+|---|---|
+| Biais | Structure **15m** (dernier BOS). Contre-tendance autorisée **uniquement** sur une liquidité 1H/4H (modèle A/B) |
+| Zone | FVG ou OB **1m / 5m** en premium (short) ou discount (long) de la dernière jambe 5m |
+| Déclencheur | Sweep d'un plus haut / bas **1m** + MSS 1m (clôture) — ou ordre limite dans la zone si le biais 15m est clair |
+| Stop | Au-delà du sweep. **Minimum 0,20 %** sur crypto, **3 $** sur l'or (sinon les frais mangent le R) |
+| Objectif | **2R minimum** ; 50 % à 1R + stop à l'entrée si le prix y arrive en moins de 5 bougies 1m |
+| Risque | **0,25 %** par scalp (2,50 $) |
+| Durée max | 45 min : si ni TP ni SL, sortie au marché |
+| Max | 2 scalps ouverts ; 8 scalps par jour ; arrêt après 3 scalps perdants d'affilée |
+| Frais simulés | Entrée limite 0,02 %, sortie au marché 0,05 % (crypto) ; or : 0,30 $/oz de spread par côté |
+
+Suivi : contrôle toutes les 2–3 minutes pendant qu'un scalp est actif, vérification sur les bougies 1m.

@@ -23,6 +23,18 @@ _Aucune._
 - O2 : dans l'OB 1H 4 257,5 – 4 266 (premium de la jambe 4 316 → 4 194), stop au-dessus de l'OB. Prix au placement : 4 197.
 - Risque total ouvert si les deux s'exécutent : 1 %.
 
+## Scalps (modèle S, 0,25 % = 2,50 $)
+
+| # | Placé (UTC) | Actif | Sens | Entrée | Stop | TP | Taille | Statut |
+|---|---|---|---|---|---|---|---|---|
+| S1 | 03:34 | BTC | SHORT limite | 83 300 | 83 470 | 82 960 | 0,0147 BTC | en attente |
+| S2 | 03:34 | XAUUSD | SHORT limite | 4 201,5 | 4 205,0 | 4 194,5 / 4 190,5 (2R / 3,1R) | 0,714 oz | en attente |
+| S3 | 03:34 | ETH | LONG (déclencheur) | sweep 2 635 + MSS 1m | sous la mèche | 2R | à calculer | alerte |
+
+- S1 : 15m et 1m baissiers (plus bas décroissants depuis 00:15). Vente sur retour dans la zone 83 280 – 83 330, stop au-dessus du dernier sommet 1m (83 436). TP juste au-dessus de la SSL 82 875.
+- S2 : or en range 4 193,6 – 4 203,3 au plus bas, biais baissier. Vente sous le haut du range, cible la SSL 4 193,6.
+- S3 : ETH à 2 644, proche de la SSL 2 635 (4H). Achat seulement après sweep + MSS 1m.
+
 ## Alertes modèle A (entrée confirmée, 1 %)
 
 - **ETH LONG** : sweep de 2 635 ou 2 600 puis MSS 15m → entrée au 50 % du FVG. Prix : 2 644 (proche de la liquidité).
