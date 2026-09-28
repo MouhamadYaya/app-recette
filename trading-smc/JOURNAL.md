@@ -12,6 +12,23 @@ Règles : voir [STRATEGIE.md](STRATEGIE.md).
 
 _Aucune._
 
+## Ordres en attente (fictifs)
+
+| # | Placé (UTC) | Actif | Modèle | Sens | Limite | Stop | TP1 / TP2 | Taille | Risque | R:R TP2 | Expire |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| O1 | 2026-09-28 03:31 | BTC | B (POI 4H) | LONG | 82 700 | 81 600 | 85 000 / 87 300 | 0,004545 BTC (376 $) | 5 $ (0,5 %) | 4,2 | 2026-09-29 03:31 |
+| O2 | 2026-09-28 03:31 | XAUUSD | B (OB 1H premium) | SHORT | 4 258 | 4 272 | 4 227 / 4 150 | 0,357 oz (1 520 $) | 5 $ (0,5 %) | 7,7 | 2026-09-29 03:31 |
+
+- O1 : sous la liquidité 82 875 (SSL), dans le FVG 4H 81 879 – 84 778, stop sous l'origine de l'impulsion (81 720). Prix au placement : 83 260.
+- O2 : dans l'OB 1H 4 257,5 – 4 266 (premium de la jambe 4 316 → 4 194), stop au-dessus de l'OB. Prix au placement : 4 197.
+- Risque total ouvert si les deux s'exécutent : 1 %.
+
+## Alertes modèle A (entrée confirmée, 1 %)
+
+- **ETH LONG** : sweep de 2 635 ou 2 600 puis MSS 15m → entrée au 50 % du FVG. Prix : 2 644 (proche de la liquidité).
+  Si ETH se déclenche avant O1, **O1 est annulé** (pas BTC et ETH longs en même temps).
+- **BTC LONG** : si sweep de 82 875 + MSS 15m **sans** exécution de O1 → entrée modèle A à la place.
+
 ## Setups en surveillance
 
 ### 2026-09-28 03:26 UTC — analyse de départ (session Asie, aucune entrée)
