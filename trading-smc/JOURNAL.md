@@ -8,6 +8,8 @@ Règles : voir [STRATEGIE.md](STRATEGIE.md).
 
 ---
 
+> **2026-09-28 ~03:37 UTC : tout annulé à la demande de l'utilisateur.** Aucun ordre fictif (O1, O2, S1, S2, S3) n'a été exécuté. Aucun trade, P&L 0 $. Suivi automatique arrêté.
+
 ## Positions ouvertes
 
 _Aucune._
@@ -27,9 +29,9 @@ _Aucune._
 
 | # | Placé (UTC) | Actif | Sens | Entrée | Stop | TP | Taille | Statut |
 |---|---|---|---|---|---|---|---|---|
-| S1 | 03:34 | BTC | SHORT limite | 83 300 | 83 470 | 82 960 | 0,0147 BTC | en attente |
-| S2 | 03:34 | XAUUSD | SHORT limite | 4 201,5 | 4 205,0 | 4 194,5 / 4 190,5 (2R / 3,1R) | 0,714 oz | en attente |
-| S3 | 03:34 | ETH | LONG (déclencheur) | sweep 2 635 + MSS 1m | sous la mèche | 2R | à calculer | alerte |
+| S1 | 03:34 | BTC | SHORT limite | 83 300 | 83 470 | 82 960 | 0,0147 BTC | annulé |
+| S2 | 03:34 | XAUUSD | SHORT limite | 4 201,5 | 4 205,0 | 4 194,5 / 4 190,5 (2R / 3,1R) | 0,714 oz | annulé |
+| S3 | 03:34 | ETH | LONG (déclencheur) | sweep 2 635 + MSS 1m | sous la mèche | 2R | à calculer | annulé |
 
 - S1 : 15m et 1m baissiers (plus bas décroissants depuis 00:15). Vente sur retour dans la zone 83 280 – 83 330, stop au-dessus du dernier sommet 1m (83 436). TP juste au-dessus de la SSL 82 875.
 - S2 : or en range 4 193,6 – 4 203,3 au plus bas, biais baissier. Vente sous le haut du range, cible la SSL 4 193,6.
